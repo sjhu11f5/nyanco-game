@@ -590,8 +590,8 @@ Game.BattleScene = class BattleScene extends Phaser.Scene {
     setupPause() {
         const W = Game.CONFIG.width;
 
-        // ポーズボタン（右上）
-        this.pauseBtn = this.add.rectangle(W - 40, 50, 50, 30, 0x333333, 0.8);
+        // ポーズボタン（右上、モバイル対応で大きめ）
+        this.pauseBtn = this.add.rectangle(W - 45, 50, 60, 40, 0x333333, 0.8);
         this.pauseBtn.setScrollFactor(0);
         this.pauseBtn.setDepth(101);
         this.pauseBtn.setInteractive({ useHandCursor: true });
@@ -612,19 +612,31 @@ Game.BattleScene = class BattleScene extends Phaser.Scene {
         }).setOrigin(0.5).setScrollFactor(0).setDepth(401);
         this.pauseText.setVisible(false);
 
-        this.pauseHint = this.add.text(W / 2, Game.CONFIG.height / 2 - 10, 'クリックまたはSpaceで再開', {
-            fontSize: '18px', fontFamily: 'Arial', color: '#CCCCCC'
-        }).setOrigin(0.5).setScrollFactor(0).setDepth(401);
-        this.pauseHint.setVisible(false);
+        // 再開ボタン
+        this.pauseResumeBtn = this.add.rectangle(W / 2, Game.CONFIG.height / 2 - 10, 220, 44, 0x44AA44, 1);
+        this.pauseResumeBtn.setScrollFactor(0).setDepth(401);
+        this.pauseResumeBtn.setInteractive({ useHandCursor: true });
+        this.pauseResumeBtn.setVisible(false);
+
+        this.pauseResumeText = this.add.text(W / 2, Game.CONFIG.height / 2 - 10, '再開', {
+            fontSize: '20px', fontFamily: 'Arial', color: '#FFFFFF', fontStyle: 'bold'
+        }).setOrigin(0.5).setScrollFactor(0).setDepth(402);
+        this.pauseResumeText.setVisible(false);
+
+        this.pauseResumeBtn.on('pointerdown', () => {
+            this.togglePause();
+        });
+        this.pauseResumeBtn.on('pointerover', () => this.pauseResumeBtn.setFillStyle(0x55BB55));
+        this.pauseResumeBtn.on('pointerout', () => this.pauseResumeBtn.setFillStyle(0x44AA44));
 
         // 編成に戻るボタン
-        this.pauseBackBtn = this.add.rectangle(W / 2, Game.CONFIG.height / 2 + 40, 220, 40, 0x4466AA, 1);
+        this.pauseBackBtn = this.add.rectangle(W / 2, Game.CONFIG.height / 2 + 45, 220, 44, 0x4466AA, 1);
         this.pauseBackBtn.setScrollFactor(0).setDepth(401);
         this.pauseBackBtn.setInteractive({ useHandCursor: true });
         this.pauseBackBtn.setVisible(false);
 
-        this.pauseBackText = this.add.text(W / 2, Game.CONFIG.height / 2 + 40, '編成に戻る', {
-            fontSize: '18px', fontFamily: 'Arial', color: '#FFFFFF'
+        this.pauseBackText = this.add.text(W / 2, Game.CONFIG.height / 2 + 45, '編成に戻る', {
+            fontSize: '20px', fontFamily: 'Arial', color: '#FFFFFF'
         }).setOrigin(0.5).setScrollFactor(0).setDepth(402);
         this.pauseBackText.setVisible(false);
 
@@ -650,7 +662,8 @@ Game.BattleScene = class BattleScene extends Phaser.Scene {
         this.paused = !this.paused;
         this.pauseOverlay.setVisible(this.paused);
         this.pauseText.setVisible(this.paused);
-        this.pauseHint.setVisible(this.paused);
+        this.pauseResumeBtn.setVisible(this.paused);
+        this.pauseResumeText.setVisible(this.paused);
         this.pauseBackBtn.setVisible(this.paused);
         this.pauseBackText.setVisible(this.paused);
         this.pauseBtnText.setText(this.paused ? '▶' : '⏸');
