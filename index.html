@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>にゃんこディフェンス</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/data/UnitData.js"></script>
+    <script src="js/data/StageData.js"></script>
+    <script src="js/entities/Base.js"></script>
+    <script src="js/entities/Unit.js"></script>
+    <script src="js/systems/MoneySystem.js"></script>
+    <script src="js/systems/SpawnSystem.js"></script>
+    <script src="js/systems/EnemySpawner.js"></script>
+    <script src="js/systems/CombatSystem.js"></script>
+    <script src="js/ui/HUD.js"></script>
+    <script src="js/scenes/BootScene.js"></script>
+    <script src="js/scenes/PrepareScene.js"></script>
+    <script src="js/scenes/BattleScene.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
